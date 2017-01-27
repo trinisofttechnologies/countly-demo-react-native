@@ -9,7 +9,7 @@
 	"dependencies": {
 		"react": "~15.4.0-rc.4",
 		"react-native": "0.40.0",
-		"countly-react-native": "file:../countly-sdk-react-native"
+		"countly-react-native": "https://github.com/trinisofttechnologies/countly-sdk-react-native.git"
 	},
 	"devDependencies": {
 		"babel-jest": "18.0.0",
