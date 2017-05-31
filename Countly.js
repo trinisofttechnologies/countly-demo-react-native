@@ -21,15 +21,14 @@ Countly.init = function(serverUrl,appKey){
     CountlyReactNative.init([serverUrl,appKey]);
 }
 
-Countly.initMessaging = function(options){
-    Countly.projectId = options.projectId;
-    Countly.messageMode = options.messageMode;
-    // Countly.Push.onRegisterPushNotification();
+Countly.initMessaging = function(projectId, messageMode, registrationId){
+    Countly.projectId = projectId;
+    Countly.messageMode = messageMode;
 
     var args = [];
-    args.push(options.registrationId || "");
-    args.push(options.messageMode || "0");
-    args.push(options.projectId || "");
+    args.push(registrationId || "");
+    args.push(messageMode || "0");
+    args.push(projectId || "");
     CountlyReactNative.onregistrationid(args);
 }
 
@@ -122,4 +121,68 @@ Countly.onError = function(error){
 Countly.demo = function(){
 
 }
-export default Countly; 
+
+Countly.setLocation = function(newDeviceID){
+    CountlyReactNative.setLocation([newDeviceID.toString() || ""]);
+}
+Countly.changeDeviceId = function(newDeviceID){
+    CountlyReactNative.changeDeviceId([newDeviceID.toString() || ""]);
+}
+Countly.enableParameterTamperingProtection = function(salt){
+    CountlyReactNative.enableParameterTamperingProtection([salt.toString() || ""]);
+}
+Countly.startEvent = function(eventName){
+    CountlyReactNative.startEvent([eventName.toString() || ""]);
+}
+Countly.endEvent = function(options){
+    if(typeof options === "string")
+        options = {eventName: options};
+    var args = [];
+    var eventType = "event"; //event, eventWithSum, eventWithSegment, eventWithSumSegment
+    var segments = {};
+
+    if(options.segments && options.eventSum)
+        eventType = "eventWithSumSegment";
+
+    args.push(eventType);
+
+    if(options.eventName)
+        args.push(options.eventName.toString());
+    if(options.eventCount)
+        args.push(options.eventCount.toString());
+    if(options.eventSum)
+        args.push(options.eventSum.toString());
+
+    if(options.segments)
+        segments = options.segments;
+    for (var event in segments) {
+        args.push(event);
+        args.push(segments[event]);
+    }
+    CountlyReactNative.endEvent(args);
+};
+
+Countly.userData = {};
+Countly.userData.setProperty = function(keyName, keyValue){
+    CountlyReactNative.userData_setProperty([keyName.toString() || "", keyValue.toString() || ""]);
+};
+Countly.userData.increment = function(keyName){
+    CountlyReactNative.userData_increment([keyName.toString() || ""]);
+};
+Countly.userData.incrementBy = function(keyName, keyIncrement){
+    CountlyReactNative.userData_incrementBy([keyName.toString() || "", keyIncrement.toString() || ""]);
+};
+Countly.userData.multiply = function(keyName, multiplyValue){
+    CountlyReactNative.userData_multiply([keyName.toString() || "", multiplyValue.toString() || ""]);
+};
+Countly.userData.saveMax = function(keyName, saveMax){
+    CountlyReactNative.userData_saveMax([keyName.toString() || "", saveMax.toString() || ""]);
+};
+Countly.userData.saveMin = function(keyName, saveMin){
+    CountlyReactNative.userData_saveMin([keyName.toString() || "", saveMin.toString() || ""]);
+};
+Countly.userData.setOnce = function(keyName, setOnce){
+    CountlyReactNative.userData_setOnce([keyName.toString() || "", setOnce.toString() || ""]);
+};
+
+export default Countly;

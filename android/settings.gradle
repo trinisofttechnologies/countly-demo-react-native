@@ -2,4 +2,6 @@ rootProject.name = 'AwesomeProject'
 
 include ':app'
 include ':countly-sdk-react-native'
-project(':countly-sdk-react-native').projectDir = new File(rootProject.projectDir,   '../node_modules/countly-sdk-react-native/android/sdk')
+project(':countly-sdk-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/countly-sdk-react-native/android/sdk')
+include ':countly-sdk-messaging-react-native'
+project(':countly-sdk-messaging-react-native').projectDir = new File(rootProject.projectDir, '../node_modules/countly-sdk-react-native/android/sdk-messaging')

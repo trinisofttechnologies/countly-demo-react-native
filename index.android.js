@@ -2,11 +2,18 @@ import React, { Component } from 'react';
 import { AppRegistry, Text, Button, View, Image } from 'react-native';
 import Countly from './Countly';
 
-Countly.init("https://try.count.ly","21b377226a4260dcbf42e88db5a7d0f2d904c928");
+Countly.init("https://try.count.ly","111dcd50d5f4a43a23202330cec19c069a68bc19");
+// push server key: AIzaSyAyEcUBOqzJtgb0ciAIosS5F1Or7jKWUFY
+// project number: 881000050249
+// Countly.initMessaging("881000050249", "0"); // 0 for testing 1 for production
 class AwesomeProject extends Component {
     constructor(props) {
         super(props);
-    };    
+    };
+
+    onInit = function(){
+
+    };
 
     onStart = function(){
       Countly.start();
@@ -29,6 +36,7 @@ class AwesomeProject extends Component {
       Countly.setUserData(options);
     };
     pushMessage = function(){
+      Countly.initMessaging("881000050249", "0");
       // implementation is pending
 
     };
@@ -42,7 +50,7 @@ class AwesomeProject extends Component {
       var events = {"eventName":"event_sum","eventCount":1,"eventSum":"0.99"};
       Countly.sendEvent(events);
     };
-    eventWithSegment = function(){      
+    eventWithSegment = function(){
       // example for event with segment
       var events = {"eventName":"event_segment","eventCount":1};
       events.segments = {"Country" : "Turkey", "Age" : "28"};
@@ -62,6 +70,7 @@ class AwesomeProject extends Component {
           <View>
             <Text style={[{fontSize:25, textAlign: 'center'}]}>Countly Cordova Demo App</Text>
             <Image source={{uri: 'https://count.ly/wp-content/uploads/2014/10/countly_logo_color.png'}} style={{width: 300, height: 88}} />
+            < Button onPress = { this.onInit } title = "Init" color = "#5bbd72"> </Button>
             < Button onPress = { this.onStart } title = "Start" color = "#5bbd72"> </Button>
             < Button onPress = { this.onStop } title = "Stop" color = "#d95c5c"> </Button>
             < Button onPress = { this.onSendUserData } title = "Send Users Data" color = "#00b5ad"> </Button>
